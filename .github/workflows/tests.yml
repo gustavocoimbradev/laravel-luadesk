@@ -1,32 +1,42 @@
 name: Tests
 
-on: [push, pull_request]
+on:
+  push:
+    branches: [main, master, develop, workos]
+  pull_request:
+    branches: [main, master, develop, workos]
 
 jobs:
-  ci:
+  pest-tests:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout
+      - name: Checkout code
         uses: actions/checkout@v4
 
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
         with:
-          php-version: 8.5
-          tools: composer:v2
+          php-version: '8.5'
+          extensions: dom, curl, libxml, mbstring, zip, pcntl, pdo, sqlite, pdo_sqlite, bcmath, soap, intl, gd, exif, iconv
           coverage: none
 
-      - name: Install Dependencies
+      - name: Install Composer Dependencies
         run: composer install --no-interaction --prefer-dist --optimize-autoloader
 
-      - name: Prepare Laravel
+      - name: Install NPM Dependencies
+        run: npm install
+
+      - name: Build Assets
+        run: npm run build
+
+      - name: Prepare Application
         run: |
           cp .env.example .env
           php artisan key:generate
 
-      - name: Tests
+      - name: Run Tests
         env:
           DB_CONNECTION: sqlite
           DB_DATABASE: ':memory:'
-        run: ./vendor/bin/pest --ci
+        run: php artisan test
