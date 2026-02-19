@@ -39,4 +39,4 @@ jobs:
         env:
           DB_CONNECTION: sqlite
           DB_DATABASE: ':memory:'
-        run: ./vendor/bin/pest --parallel
+        run: ./vendor/bin/pest tests/Unit tests/Feature
