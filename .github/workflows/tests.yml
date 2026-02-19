@@ -7,8 +7,12 @@ on:
     branches: [main, master, develop, workos]
 
 jobs:
-  pest-tests:
+  ci:
     runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        php-version: ['8.4', '8.5']
 
     steps:
       - name: Checkout code
@@ -17,26 +21,22 @@ jobs:
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
         with:
-          php-version: '8.5'
-          extensions: dom, curl, libxml, mbstring, zip, pcntl, pdo, sqlite, pdo_sqlite, bcmath, soap, intl, gd, exif, iconv
+          php-version: ${{ matrix.php-version }}
+          extensions: dom, curl, libxml, mbstring, zip, pdo, sqlite, pdo_sqlite, bcmath, gd, intl
           coverage: none
 
-      - name: Install Composer Dependencies
+      - name: Install Dependencies
         run: composer install --no-interaction --prefer-dist --optimize-autoloader
-
-      - name: Install NPM Dependencies
-        run: npm install
-
-      - name: Build Assets
-        run: npm run build
 
       - name: Prepare Application
         run: |
           cp .env.example .env
           php artisan key:generate
+          npm install
+          npm run build
 
       - name: Run Tests
         env:
           DB_CONNECTION: sqlite
           DB_DATABASE: ':memory:'
-        run: php artisan test
+        run: ./vendor/bin/pest --parallel
