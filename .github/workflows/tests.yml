@@ -11,32 +11,31 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
         with:
-          php-version: '8.5'
-          extensions: dom, curl, libxml, mbstring, zip, pcntl, pdo, sqlite, pdo_sqlite, bcmath, soap, intl, gd, exif, iconv
+          php-version: '8.4'
+          extensions: dom, curl, mbstring, zip, pdo, sqlite, pdo_sqlite, bcmath, intl, gd
           coverage: none
 
-      - name: Install Composer Dependencies
-        run: composer install --no-interaction --prefer-dist --optimize-autoloader
-
-      - name: Install NPM Dependencies
-        run: npm install
-
-      - name: Build Assets
-        run: npm run build
-
-      - name: Prepare Application
+      - name: Install Dependencies
         run: |
-          cp .env.example .env
-          php artisan key:generate
+          composer install --no-interaction --prefer-dist --optimize-autoloader
+          npm install
+          npm run build
 
-      - name: Run Tests
+      - name: Prepare and Test
         env:
           DB_CONNECTION: sqlite
           DB_DATABASE: ':memory:'
-        run: php artisan test
+          BCRYPT_ROUNDS: 4
+          CACHE_STORE: array
+          SESSION_DRIVER: array
+          QUEUE_CONNECTION: sync
+        run: |
+          cp .env.example .env
+          php artisan key:generate
+          php artisan migrate --force
+          php artisan test
