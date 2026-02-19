@@ -17,25 +17,22 @@ jobs:
         uses: shivammathur/setup-php@v2
         with:
           php-version: '8.4'
-          extensions: dom, curl, mbstring, zip, pdo, sqlite, pdo_sqlite, bcmath, intl, gd
+          extensions: dom, curl, mbstring, zip, pdo, sqlite, bcmath, intl, gd
           coverage: none
 
       - name: Install Dependencies
         run: |
-          composer install --no-interaction --prefer-dist --optimize-autoloader
+          composer install --no-interaction --prefer-dist
           npm install
-          npm run build
 
       - name: Prepare and Test
         env:
           DB_CONNECTION: sqlite
           DB_DATABASE: ':memory:'
-          BCRYPT_ROUNDS: 4
-          CACHE_STORE: array
-          SESSION_DRIVER: array
-          QUEUE_CONNECTION: sync
+          VITE_ALLOW_SLOW_NETWORK_SUBSCRIPTION: true
         run: |
           cp .env.example .env
           php artisan key:generate
+          npm run build
           php artisan migrate --force
           php artisan test
