@@ -15,7 +15,7 @@ test('unauthenticated user cannot create a ticket', function(){
 
     $this->post(route('tickets.store'), $payload)
         ->assertStatus(302)
-        ->assertRedirect(route('auth.index'));
+        ->assertRedirect(route('auth.create'));
 
 });
 

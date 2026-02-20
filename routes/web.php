@@ -1,7 +1,7 @@
 <?php
 
 use App\Http\Controllers\{AnswerController, UserController, AuthController, TicketController};
-
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 Route::controller(UserController::class)->middleware(['auth', 'admin'])->group(function(){
@@ -14,10 +14,13 @@ Route::controller(UserController::class)->middleware(['auth', 'admin'])->group(f
     Route::delete('/users/{user}', 'destroy')->name('users.destroy');
 });
 
-Route::controller(AuthController::class)->group(function(){
-    Route::get('/auth', 'index')->name('auth.index');
-    Route::post('/auth', 'store')->name('auth.store');
-    Route::delete('/auth', 'destroy')->name('auth.destroy');
+Route::controller(AuthController::class)->middleware('guest')->group(function(){
+    Route::get('/login', 'create')->name('auth.create');
+    Route::post('/login', 'store')->name('auth.store');
+});
+
+Route::controller(AuthController::class)->middleware('auth')->group(function(){
+    Route::delete('/logout', 'destroy')->name('auth.destroy');
 });
 
 Route::controller(TicketController::class)->middleware('auth')->group(function(){
@@ -31,4 +34,9 @@ Route::controller(TicketController::class)->middleware('auth')->group(function()
 
 Route::controller(AnswerController::class)->middleware('auth')->group(function(){
     Route::post('/tickets/{ticket}/answers', 'store')->name('answers.store');
+});
+
+Route::get('/', function() {
+    if (Auth::check()) return to_route('tickets.index');
+    return to_route('auth.create');
 });

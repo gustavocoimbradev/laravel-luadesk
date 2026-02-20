@@ -21,9 +21,7 @@ return Application::configure(basePath: dirname(__DIR__))
         $middleware->alias([
             'admin' => Admin::class
         ]);
-    })
-    ->withMiddleware(function (Middleware $middleware) {
-        $middleware->redirectGuestsTo(fn () => route('auth.index'));
+        $middleware->redirectGuestsTo(fn () => route('auth.create'));
     })
     ->withExceptions(function (Exceptions $exceptions): void {
         //
