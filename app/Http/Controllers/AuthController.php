@@ -19,7 +19,7 @@ class AuthController extends Controller
     public function store(StoreAuthRequest $request) {
         if ($this->service->authenticate($request->validated())) {
             $request->session()->regenerate();
-            return to_route('tickets.index');
+            return redirect()->intended(route('tickets.index'));
         } 
         return to_route('auth.index')->withError('The provided credentials do not match our records.');
     }
@@ -30,4 +30,5 @@ class AuthController extends Controller
         $request->session()->regenerateToken();
         return to_route('auth.index');
     }
+    
 }

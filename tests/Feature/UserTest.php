@@ -6,17 +6,20 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 uses(RefreshDatabase::class);
 
 test('user list page can be rendered', function() {
-    $users = User::all();
-    $this->get(route('users.index'))
-        ->assertSee($users)
+    $admin = User::factory()->create(['is_admin' => true]);
+    $this->actingAs($admin)
+        ->get(route('users.index'))
         ->assertStatus(200);
 });
 
 test('user creating form page can be rendered', function() {
-    $this->get(route('users.create'))->assertStatus(200);
+    $admin = User::factory()->create(['is_admin' => true]);
+    $this->actingAs($admin)->get(route('users.create'))->assertStatus(200);
 });
 
 test('user can be created', function() {
+
+    $admin = User::factory()->create(['is_admin' => true]);
     
     $data = [
         'name' => fake()->name(),
@@ -24,7 +27,8 @@ test('user can be created', function() {
         'password' => fake()->password()
     ];
 
-    $this->followingRedirects()
+    $this->actingAs($admin)
+        ->followingRedirects()
         ->post(route('users.store', $data))
         ->assertStatus(200)
         ->assertSee($data['name']);
@@ -34,21 +38,26 @@ test('user can be created', function() {
 });
 
 test('user page can be rendered', function() {
+    $admin = User::factory()->create(['is_admin' => true]);
     $user = User::factory()->create();
-    $this->get(route('users.show', $user))
+    $this->actingAs($admin)
+        ->get(route('users.show', $user))
         ->assertStatus(200)
         ->assertSee($user->name);
 });
 
 test('user editing form page can be rendered', function(){
+    $admin = User::factory()->create(['is_admin' => true]);
     $user = User::factory()->create();
-    $this->get(route('users.edit', $user))
+    $this->actingAs($admin)
+        ->get(route('users.edit', $user))
         ->assertSee($user->name)
         ->assertStatus(200);
 });
 
 test('user can be edited', function() {
 
+    $admin = User::factory()->create(['is_admin' => true]);
     $user = User::factory()->create(['name' => 'Old Name']);
 
     $payload = [
@@ -57,7 +66,8 @@ test('user can be edited', function() {
         'password'  => fake()->password()
     ];
 
-    $this->followingRedirects()
+    $this->actingAs($admin)
+        ->followingRedirects()
         ->put(route('users.update', $user), $payload)
         ->assertStatus(200)
         ->assertSee('New Name');
@@ -70,8 +80,10 @@ test('user can be edited', function() {
 });
 
 test('user can be deleted', function() {
+    $admin = User::factory()->create(['is_admin' => true]);
     $user = User::factory()->create();
-    $this->followingRedirects()
+    $this->actingAs($admin)
+        ->followingRedirects()
         ->delete(route('users.destroy', $user))
         ->assertStatus(200);
     $this->assertSoftDeleted($user);

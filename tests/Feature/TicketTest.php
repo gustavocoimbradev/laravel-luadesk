@@ -6,7 +6,20 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 
 uses(RefreshDatabase::class);
 
-test('authenticated user can create a ticket', function(){
+test('unauthenticated user cannot create a ticket', function(){
+
+    $payload = [
+        'title' => fake()->sentence(4),
+        'content' => fake()->paragraphs(3, true),
+    ];
+
+    $this->post(route('tickets.store'), $payload)
+        ->assertStatus(302)
+        ->assertRedirect(route('auth.index'));
+
+});
+
+test('user can create a ticket', function(){
 
     $user = User::factory()->create();
 
@@ -23,16 +36,30 @@ test('authenticated user can create a ticket', function(){
 
 });
 
-test('unauthenticated user cannot create a ticket', function(){
+test('user can see their own tickets', function() {
 
-    $payload = [
-        'title' => fake()->sentence(4),
-        'content' => fake()->paragraphs(3, true),
-    ];
+    $user = User::factory()->create();
 
-    $this->followingRedirects()
-        ->post(route('tickets.store'), $payload)
-        ->assertStatus(403);
+    Ticket::factory(5)->create(['user_id' => $user->id, 'title' => 'My own tickets']);
+
+    $this->actingAs($user)
+        ->get(route('tickets.index'))
+        ->assertStatus(200)
+        ->assertSee('My own tickets');
+
+});
+
+test('user cannot see another user\'s ticket', function() {
+
+    $user1 = User::factory()->create();
+    $user2 = User::factory()->create();
+
+    Ticket::factory(5)->create(['user_id' => $user1->id, 'title' => 'My own tickets']);
+
+    $this->actingAs($user2)
+        ->get(route('tickets.index'))
+        ->assertStatus(200)
+        ->assertDontSee('My own tickets');
 
 });
 
@@ -112,13 +139,6 @@ test('user cannot edit another user\'s ticket', function() {
 
 });
 
-test('tickets page can be rendered', function() {
-
-    $this->get(route('tickets.index'))
-        ->assertStatus(200);
-
-});
-
 test('ticket page can be rendered', function() {
 
     $user = User::factory()->create();
@@ -165,4 +185,22 @@ test('ticket editing form cannot be rendered for unauthorized user', function() 
         ->get(route('tickets.edit', $ticket))
         ->assertStatus(403);
     
+}); 
+
+test('admin can see all tickets', function(){
+
+    $admin = User::factory()->create(['is_admin' => true]);
+
+    $user1 = User::factory()->create();
+    $user2 = User::factory()->create();
+
+    $tickets1 = Ticket::factory(3)->create(['user_id' => $user1->id, 'title' => 'Ticket from user 1']);
+    $tickets2 = Ticket::factory(3)->create(['user_id' => $user2->id, 'title' => 'Ticket from user 2']);
+
+    $this->actingAs($admin)
+        ->get(route('tickets.index'))
+        ->assertStatus(200)
+        ->assertSee('Ticket from user 1')
+        ->assertSee('Ticket from user 2');
+
 });

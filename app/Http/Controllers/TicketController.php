@@ -6,15 +6,17 @@ use App\Http\Requests\{StoreTicketRequest, DestroyTicketRequest, UpdateTicketReq
 use Inertia\Inertia;
 use App\Models\Ticket;
 use App\Services\TicketService;
-use Illuminate\Http\Request;
-
+ 
 class TicketController extends Controller
 {
 
     public function __construct(protected TicketService $service) {}
     
-    public function index() {
-        return Inertia::render('Tickets/Index');
+    public function index() { 
+        return Inertia::render('Tickets/Index', [
+            'tickets' => ticket::viewedBy(auth()->user())
+                ->latest()->get()
+        ]);
     }
 
     public function store(StoreTicketRequest $request) {
