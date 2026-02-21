@@ -2,6 +2,7 @@
 import { useForm } from '@inertiajs/vue3';
 import AuthLayout from '@/layouts/AuthLayout.vue';
 import { store } from "@/routes/auth";
+import { Loader2 } from 'lucide-vue-next';
 const form = useForm({
     email: '',
     password: ''
@@ -24,7 +25,11 @@ const submit = () => {
             {{ $page.props.errors.message }}
         </div>
             <div>
-                <button type="submit" class="p-2 bg-blue-950 text-white w-full cursor-pointer transition-all ease-in-out duration-300 hover:bg-blue-900">Log In</button>
+                <button type="submit" :class="['p-2 bg-blue-950 text-white w-full cursor-pointer transition-all ease-in-out duration-300 hover:bg-blue-900 flex items-center gap-3 justify-center', form.processing ? 'disabled opacity-70 pointer-events-none' : '']">
+                    <Loader2 v-if="form.processing" class="animate-spin w-5" />
+                    <span v-if="!form.processing">Login</span>
+                    <span v-if="form.processing">Logging in</span>
+                </button>
             </div>
         </form>
     </AuthLayout>

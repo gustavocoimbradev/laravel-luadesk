@@ -40,6 +40,7 @@ class HandleInertiaRequests extends Middleware
             'name' => config('app.name'),
             'auth' => [
                 'user' => $request->user(),
+                'is_admin' => $request->user() ? (bool) auth()->user()->is_admin : false
             ],
             'route' => request()->route()->getName(),
         ];
