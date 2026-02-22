@@ -14,10 +14,21 @@ jobs:
           php-version: '8.3'
           extensions: mbstring, dom, curl, libxml, sqlite, pdo_sqlite
 
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install Node Dependencies
+        run: npm install
+
+      - name: Build Assets
+        run: npm run build
+
       - name: Directory Permissions
         run: chmod -R 777 storage bootstrap/cache
 
-      - name: Install Dependencies
+      - name: Install PHP Dependencies
         run: composer install --no-ansi --no-interaction --no-progress
 
       - name: Run Tests
@@ -25,5 +36,4 @@ jobs:
           DB_CONNECTION: sqlite
           DB_DATABASE: ':memory:'
           APP_KEY: base64:fH8VvYh5Z5zD3p9Xl0m7Qz1R2S3T4U5V6W7X8Y9Z0A1=
-          WITHOUT_VITE: true
         run: php artisan test --path tests/Feature
