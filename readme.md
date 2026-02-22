@@ -33,7 +33,7 @@ O **Lua/desk** é um sistema de gerenciamento de tickets (chamados) de código a
 
 ---
 
-## 🔐 Acesso para Testes
+## 🔐 Acesso para testes
 
 A senha para todas as contas pré-configuradas é: `password`.
 
