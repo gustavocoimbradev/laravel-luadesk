@@ -3,7 +3,7 @@
 O **Lua/desk** é um sistema de gerenciamento de tickets (chamados) de código aberto, focado em agilidade e organização. Desenvolvido com uma arquitetura moderna, ele oferece uma experiência de Single Page Application (SPA) fluida para o suporte e comunicação entre equipes.
 
 <div align="center">
-  <video src="https://github.com/user-attachments/assets/5a06ddf7-3838-4ee0-8053-46941e8cffe2" width="100%" controls autoplay loop muted>
+  <video src="https://github.com/user-attachments/assets/12d9e211-6d5f-40de-8c48-b948082fcee0" width="100%" controls autoplay loop muted>
     Seu navegador não suporta a visualização de vídeos.
   </video>
 </div>
