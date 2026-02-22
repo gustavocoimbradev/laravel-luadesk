@@ -22,10 +22,6 @@ class UserController extends Controller
         return Inertia::render('Users/Create');
     }
 
-    public function show(User $user) {
-        return Inertia::render('Users/Show', ['users' => $user]);
-    }
-
     public function edit(User $user) {
         Gate::authorize('update', $user);
         return Inertia::render('Users/Edit', ['user' => $user]);

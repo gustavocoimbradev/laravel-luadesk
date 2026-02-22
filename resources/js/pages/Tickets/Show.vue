@@ -35,7 +35,7 @@ const submit = (closes_ticket = false) => {
         <div class="card">
             <div class="card-header">
                 Answers
-            </div>
+            </div> 
              <div class="card-body">
                 <div class="flex flex-col gap-4">
                     <div v-for="answer in ticket.answers" :class="['p-3 border-l-2', answer.user.is_admin ? 'border-blue-950 bg-blue-500/5' : 'border-slate-100']">

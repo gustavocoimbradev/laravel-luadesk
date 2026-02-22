@@ -27,10 +27,10 @@ class TicketController extends Controller
         }
         return redirect()->back()->withError('Failed to create ticket.');
     }
-
+ 
     public function show(ShowTicketRequest $request, Ticket $ticket) {
         $ticket->load(['user','answers.user']);
-        return Inertia::render('Tickets/Show', ['ticket' => $ticket]);
+        return Inertia::render('Tickets/Show', ['ticket' => $ticket]); 
     }
     
     public function create() {
@@ -45,8 +45,6 @@ class TicketController extends Controller
         $this->service->updateTicket($ticket, $request->validated());
     }
 
-    public function edit(EditTicketRequest $request, Ticket $ticket) {
-        return Inertia::render('Tickets/Edit', ['ticket' => $ticket]);
-    }
+
 
 }

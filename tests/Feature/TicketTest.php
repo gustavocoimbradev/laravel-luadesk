@@ -163,30 +163,6 @@ test('ticket page cannot be rendered for unauthorized user', function() {
     
 });
 
-test('ticket editing form can be rendered', function() {
-
-    $user = User::factory()->create();
-    $ticket = Ticket::factory()->create(['user_id' => $user->id]);
-
-    $this->actingAs($user)
-        ->get(route('tickets.edit', $ticket))
-        ->assertStatus(200);
-
-});
-
-test('ticket editing form cannot be rendered for unauthorized user', function() {
-
-    $user1 = User::factory()->create();
-    $user2 = User::factory()->create();
-
-    $ticket = Ticket::factory()->create(['user_id' => $user1->id]);
-
-    $this->actingAs($user2)
-        ->get(route('tickets.edit', $ticket))
-        ->assertStatus(403);
-    
-}); 
-
 test('admin can see all tickets', function(){
 
     $admin = User::factory()->create(['is_admin' => true]);

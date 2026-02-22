@@ -37,15 +37,6 @@ test('user can be created', function() {
 
 });
 
-test('user page can be rendered', function() {
-    $admin = User::factory()->create(['is_admin' => true]);
-    $user = User::factory()->create();
-    $this->actingAs($admin)
-        ->get(route('users.show', $user))
-        ->assertStatus(200)
-        ->assertSee($user->name);
-});
-
 test('user editing form page can be rendered', function(){
     $admin = User::factory()->create(['is_admin' => true]);
     $user = User::factory()->create();
