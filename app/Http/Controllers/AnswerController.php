@@ -2,27 +2,16 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Answer;
+use App\Http\Requests\StoreAnswerRequest;
 use App\Models\Ticket;
-use Illuminate\Http\Request;
+use App\Services\AnswerService;
 
 class AnswerController extends Controller
 {
     
-    public function store(Request $request, Ticket $ticket) {
-
-        $validated = $request->validate([
-            'content' => 'required|string|max:50000|not_regex:/<script/i'
-        ]);
-
-        $ticket->answers()->create([
-            'content'   => $validated['content'],
-            'ticket_id' => $ticket->id,
-            'user_id'   => auth()->id()
-        ]);
-
+    public function store(StoreAnswerRequest $request, Ticket $ticket, AnswerService $service) {
+        $service->createAnswer($request->validated(), $ticket);
         return to_route('tickets.show', $ticket);
-
     }
 
 }

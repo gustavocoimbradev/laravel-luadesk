@@ -204,3 +204,17 @@ test('admin can see all tickets', function(){
         ->assertSee('Ticket from user 2');
 
 });
+
+test('admin can see a single ticket', function(){
+
+    $admin = User::factory()->create(['is_admin' => true]);
+    $user = User::factory()->create();
+    $ticket = Ticket::factory()->create(['user_id' => $user->id]);
+
+    $this->actingAs($admin)
+        ->get(route('tickets.show', ['ticket' => $ticket->id]))
+        ->assertStatus(200)
+        ->assertSee($ticket->title);
+
+});
+

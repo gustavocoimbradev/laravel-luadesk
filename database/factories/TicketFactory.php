@@ -13,7 +13,7 @@ class TicketFactory extends Factory
         return [
             'title' => fake()->sentence(4),
             'content' => fake()->paragraphs(3, true),
-            'user_id' => User::factory()->create(),
+            'user_id' => User::factory(),
         ];
     }
 

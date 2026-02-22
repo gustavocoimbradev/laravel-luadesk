@@ -18,6 +18,8 @@ return new class extends Migration
             $table->foreignId('user_id')
                 ->constrained('users')
                 ->cascadeOnDelete();
+            $table->tinyInteger('status')
+                ->default(0)->comment('0 - Pending, 1 - Answered, 2 - Closed');
             $table->timestamps();
             $table->softDeletes();
         });

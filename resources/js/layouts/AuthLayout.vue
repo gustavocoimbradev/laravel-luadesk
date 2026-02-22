@@ -9,7 +9,7 @@ import { Moon } from 'lucide-vue-next';
                 <Moon class="text-amber-100" :size="30"/>
                 <span><strong class="text-amber-100">Lua</strong>/desk</span>
             </div>
-            <div class="bg-amber-100 border border-amber-200/50 shadow-lg p-6 w-[400px] max-w-full ">
+            <div class="bg-amber-100 border border-amber-200/50 shadow-lg p-6 w-[400px] max-w-full">
                 <slot/>
             </div>
         </div>

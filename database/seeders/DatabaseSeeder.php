@@ -2,6 +2,8 @@
 
 namespace Database\Seeders;
 
+use App\Models\Answer;
+use App\Models\Ticket;
 use App\Models\User;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
@@ -13,11 +15,16 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // User::factory(10)->create();
 
-        User::factory()->create([
-            'name' => 'Test User',
-            'email' => 'test@example.com',
-        ]);
+        User::factory()->create(['email' => 'admin@admin.com', 'is_admin' => true]);
+
+        User::factory(5)
+            ->has(Ticket::factory(15)->has(
+                    Answer::factory(10)->state(function(array $attributes, Ticket $ticket){
+                        return ['user_id' => $ticket->user_id];
+                    })
+                )
+            )
+            ->create();
     }
 }

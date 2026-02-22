@@ -8,10 +8,13 @@ Route::controller(UserController::class)->middleware(['auth', 'admin'])->group(f
     Route::get('/users', 'index')->name('users.index');
     Route::get('/users/create', 'create')->name('users.create');
     Route::post('/users', 'store')->name('users.store');
-    Route::get('/users/{user}/edit', 'edit')->name('users.edit');
-    Route::put('/users/{user}', 'update')->name('users.update');
     Route::get('/users/{user}', 'show')->name('users.show');
     Route::delete('/users/{user}', 'destroy')->name('users.destroy');
+});
+
+Route::controller(UserController::class)->middleware('auth')->group(function(){
+    Route::put('/users/{user}', 'update')->name('users.update');
+    Route::get('/users/{user}/edit', 'edit')->name('users.edit');
 });
 
 Route::controller(AuthController::class)->middleware('guest')->group(function(){
@@ -25,6 +28,7 @@ Route::controller(AuthController::class)->middleware('auth')->group(function(){
 
 Route::controller(TicketController::class)->middleware('auth')->group(function(){
     Route::get('/tickets', 'index')->name('tickets.index');
+    Route::get('/tickets/create', 'create')->name('tickets.create');
     Route::get('/tickets/{ticket}', 'show')->name('tickets.show');
     Route::post('/tickets', 'store')->name('tickets.store');
     Route::delete('/tickets/{ticket}', 'destroy')->name('tickets.destroy');

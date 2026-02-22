@@ -14,20 +14,27 @@ class TicketController extends Controller
     
     public function index() { 
         return Inertia::render('Tickets/Index', [
-            'tickets' => ticket::viewedBy(auth()->user())
-                ->latest()->get()
+            'tickets' => Ticket::viewedBy(auth()->user())
+                ->with(['user','answers'])
+                ->latest()
+                ->get()
         ]);
     }
 
     public function store(StoreTicketRequest $request) {
         if ($ticket = $this->service->createTicket($request->validated())) {
-            return to_route('tickets.show', $ticket);
+            return to_route('tickets.index')->with('success', 'Ticket created successfully!');
         }
         return redirect()->back()->withError('Failed to create ticket.');
     }
 
     public function show(ShowTicketRequest $request, Ticket $ticket) {
+        $ticket->load(['user','answers.user']);
         return Inertia::render('Tickets/Show', ['ticket' => $ticket]);
+    }
+    
+    public function create() {
+        return Inertia::render('Tickets/Create');
     }
 
     public function destroy(DestroyTicketRequest $request, Ticket $ticket) {

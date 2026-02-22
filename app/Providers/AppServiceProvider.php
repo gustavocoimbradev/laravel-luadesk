@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use App\Models\Answer;
+use App\Observers\AnswerObserver;
 use Carbon\CarbonImmutable;
 use Illuminate\Support\Facades\Date;
 use Illuminate\Support\Facades\DB;
@@ -24,6 +26,7 @@ class AppServiceProvider extends ServiceProvider
     public function boot(): void
     {
         $this->configureDefaults();
+        Answer::observe(AnswerObserver::class);
     }
 
     /**

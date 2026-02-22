@@ -21,11 +21,11 @@ const submit = () => {
             <fieldset class="flex flex-col">
                 <input v-model="form.password" type="password" id="password" class="outline-none p-2 border border-amber-400/50 w-full bg-amber-200/50" placeholder="Password"/>
             </fieldset>
-        <div v-if="$page.props.errors.message" class="text-red-700 border-dashed border p-2 border-red-700">
+        <div v-if="$page.props.errors.message" class="error mb-0">
             {{ $page.props.errors.message }}
         </div>
             <div>
-                <button type="submit" :class="['p-2 bg-blue-950 text-white w-full cursor-pointer transition-all ease-in-out duration-300 hover:bg-blue-900 flex items-center gap-3 justify-center', form.processing ? 'disabled opacity-70 pointer-events-none' : '']">
+                <button type="submit" :class="['button button-primary w-full', form.processing ? 'button-disabled' : '']">
                     <Loader2 v-if="form.processing" class="animate-spin w-5" />
                     <span v-if="!form.processing">Login</span>
                     <span v-if="form.processing">Logging in</span>

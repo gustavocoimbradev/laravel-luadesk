@@ -11,7 +11,7 @@ class Ticket extends Model
 
     use HasFactory, SoftDeletes;
 
-    protected $fillable = ['title', 'content', 'user_id', 'is_admin'];
+    protected $fillable = ['title', 'content', 'user_id', 'status'];
 
     public function user() {
         return $this->belongsTo(User::class);
@@ -21,8 +21,19 @@ class Ticket extends Model
         return $this->hasMany(Answer::class);
     }
 
-    public function scopeViewedBy($query, $user) {
-        return auth()->user()->is_admin ? $query : $query->where('user_id', $user->id);
+    public function respondedByAdmin() {
+        $lastAnswer = $this->answers()->latest()->first();
+        return (bool) $lastAnswer?->user?->is_admin;
     }
+
+    public function scopeViewedBy($query, $user) {
+        return auth()->user()->is_admin ? $query->orderBy('status', 'ASC') : $query->where('user_id', $user->id)->orderBy('id', 'DESC');
+    }
+
+    public function scopeCountPending($query) {
+        return $query->where('status', 0)->count();
+    }
+
+
 
 }

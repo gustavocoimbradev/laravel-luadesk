@@ -15,6 +15,8 @@ class UserService {
     }
 
     public function editUser(array $data, User $user) {
+        if (empty($data['password'])) unset($data['password']);
+        if (empty($data['is_admin'])) unset($data['is_admin']);
         $user->update($data);
         return $user;
     }

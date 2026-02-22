@@ -10,10 +10,14 @@ class Answer extends Model
 
     use HasFactory;
     
-    protected $fillable = ['content', 'ticket_id', 'user_id'];
+    protected $fillable = ['content', 'ticket_id', 'user_id', 'closes_ticket'];
 
     public function ticket() {
         return $this->belongsTo(Ticket::class);
+    }
+
+    public function user() {
+        return $this->belongsTo(User::class);
     }
 
 }
