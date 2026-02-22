@@ -27,7 +27,9 @@ O **Lua/desk** é um sistema de gerenciamento de tickets (chamados) de código a
 
 3. **Acesse o sistema:**
    Após a conclusão do script, o servidor provavelmente estará rodando em:
-   👉 [http://localhost:8000](http://localhost:8000)
+    ```bash
+    👉 http://localhost:8000
+    ```
 
 ---
 
