@@ -15,7 +15,7 @@ O **Lua/desk** é um sistema de gerenciamento de tickets (chamados) de código a
 1. **Clone o repositório:**
 
     ```bash
-    git clone [https://github.com/gustavocoimbradev/luadesk.git](https://github.com/gustavocoimbradev/luadesk.git)
+    git clone https://github.com/gustavocoimbradev/luadesk.git
     cd luadesk
     ```
 
