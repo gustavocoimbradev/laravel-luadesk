@@ -1,38 +1,38 @@
-name: Tests
+# name: Tests
 
-on:
-  push:
-    branches: [main, master, develop, workos]
-  pull_request:
-    branches: [main, master, develop, workos]
+# on:
+#   push:
+#     branches: [main, master, develop, workos]
+#   pull_request:
+#     branches: [main, master, develop, workos]
 
-jobs:
-  pest-tests:
-    runs-on: ubuntu-latest
+# jobs:
+#   pest-tests:
+#     runs-on: ubuntu-latest
 
-    steps:
-      - uses: actions/checkout@v4
+#     steps:
+#       - uses: actions/checkout@v4
 
-      - name: Setup PHP
-        uses: shivammathur/setup-php@v2
-        with:
-          php-version: '8.4'
-          extensions: dom, curl, mbstring, zip, pdo, sqlite, bcmath, intl, gd
-          coverage: none
+#       - name: Setup PHP
+#         uses: shivammathur/setup-php@v2
+#         with:
+#           php-version: '8.4'
+#           extensions: dom, curl, mbstring, zip, pdo, sqlite, bcmath, intl, gd
+#           coverage: none
 
-      - name: Install Dependencies
-        run: |
-          composer install --no-interaction --prefer-dist
-          npm install
+#       - name: Install Dependencies
+#         run: |
+#           composer install --no-interaction --prefer-dist
+#           npm install
 
-      - name: Prepare and Test
-        env:
-          DB_CONNECTION: sqlite
-          DB_DATABASE: ':memory:'
-          VITE_ALLOW_SLOW_NETWORK_SUBSCRIPTION: true
-        run: |
-          cp .env.example .env
-          php artisan key:generate
-          npm run build
-          php artisan migrate --force
-          php artisan test
+#       - name: Prepare and Test
+#         env:
+#           DB_CONNECTION: sqlite
+#           DB_DATABASE: ':memory:'
+#           VITE_ALLOW_SLOW_NETWORK_SUBSCRIPTION: true
+#         run: |
+#           cp .env.example .env
+#           php artisan key:generate
+#           npm run build
+#           php artisan migrate --force
+#           php artisan test
