@@ -19,4 +19,5 @@ jobs:
         env:
           DB_CONNECTION: sqlite
           DB_DATABASE: ':memory:'
+          APP_KEY: base64:fH8VvYh5Z5zD3p9Xl0m7Qz1R2S3T4U5V6W7X8Y9Z0A1=
         run: php artisan test --path tests/Feature
