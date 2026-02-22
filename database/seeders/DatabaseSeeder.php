@@ -16,15 +16,21 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
 
-        User::factory()->create(['email' => 'admin@admin.com', 'is_admin' => true]);
+        User::factory()->create(['email' => 'admin1@example.com', 'is_admin' => true]);
+        User::factory()->create(['email' => 'admin2@example.com', 'is_admin' => true]);
+        User::factory()->create(['email' => 'admin3@example.com', 'is_admin' => true]);
 
-        User::factory(5)
-            ->has(Ticket::factory(15)->has(
-                    Answer::factory(10)->state(function(array $attributes, Ticket $ticket){
-                        return ['user_id' => $ticket->user_id];
-                    })
-                )
-            )
-            ->create();
+        User::factory()
+            ->has(Ticket::factory(5))
+            ->create(['email' => 'user1@example.com']);
+
+        User::factory()
+            ->has(Ticket::factory(5))
+            ->create(['email' => 'user2@example.com']);
+        
+        User::factory()
+            ->has(Ticket::factory(5))
+            ->create(['email' => 'user3@example.com']);
+
     }
 }

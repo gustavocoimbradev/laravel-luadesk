@@ -40,7 +40,7 @@ const toggleMenu = () => {
 
 <template>
     <div class="flex h-full">
-        <div class="bg-blue-950 h-[65px] fixed w-full top-0 left-0 flex items-center justify-start gap-6 px-4">
+        <div class="bg-blue-950 h-[65px] fixed w-full top-0 left-0 flex items-center justify-start gap-6 px-4 md:hidden">
             <div :class="['text-2xl text-white flex items-center gap-2 transition-all ease-in-out duration-300', isExpanded ? 'opacity-0 pointer-events-none' : '']">
                 <button class="cursor-pointer mr-2">
                     <Menu class="text-amber-100" :size="30" @click="toggleMenu"/>
