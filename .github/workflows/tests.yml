@@ -19,17 +19,17 @@ jobs:
         with:
           node-version: '20'
 
-      - name: Install Node Dependencies
-        run: npm install
-
-      - name: Build Assets
-        run: npm run build
-
       - name: Directory Permissions
         run: chmod -R 777 storage bootstrap/cache
 
       - name: Install PHP Dependencies
         run: composer install --no-ansi --no-interaction --no-progress
+
+      - name: Install Node Dependencies
+        run: npm install
+
+      - name: Build Assets
+        run: npm run build
 
       - name: Run Tests
         env:
