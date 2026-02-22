@@ -6,8 +6,6 @@ O **Lua/desk** é um sistema de gerenciamento de tickets (chamados) de código a
 
 ### 📋 Pré-requisitos
 
-Para que o comando de instalação automática funcione, você precisará ter instalado:
-
 - **PHP 8.2+**
 - **Composer**
 - **Node.js & NPM**
