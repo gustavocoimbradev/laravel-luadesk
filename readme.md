@@ -1,19 +1,43 @@
+CONTEUDO_DO_README: |
+
 # 🌙 Lua/desk
 
 O **Lua/desk** é um sistema de gerenciamento de tickets (chamados) de código aberto, focado em agilidade e organização. Desenvolvido com uma arquitetura moderna, ele oferece uma experiência de Single Page Application (SPA) fluida para o suporte e comunicação entre equipes.
 
 ---
 
-## 🚀 Demonstração
+### 📋 Pré-requisitos
 
-O projeto está disponível para teste em:
-👉 [https://luadesk.laravel.cloud](https://luadesk.laravel.cloud)
+Para que o comando de instalação automática funcione, você precisará ter instalado:
+
+- **PHP 8.2+**
+- **Composer**
+- **Node.js & NPM**
+
+### 🛠️ Passo a passo
+
+1. **Clone o repositório:**
+
+    ```bash
+    git clone [https://github.com/gustavocoimbradev/luadesk.git](https://github.com/gustavocoimbradev/luadesk.git)
+    cd luadesk
+    ```
+
+2. **Instalação e setup automático:**
+
+    ```bash
+    npm run start
+    ```
+
+3. **Acesse o sistema:**
+   Após a conclusão do script, o servidor provavelmente estará rodando em:
+   👉 [http://localhost:8000](http://localhost:8000)
 
 ---
 
 ## 🔐 Acesso para Testes
 
-Utilize as credenciais abaixo para explorar as diferentes permissões do sistema. A senha para todas as contas é: `password`.
+A senha para todas as contas pré-configuradas é: `password`.
 
 ### 🛠️ Administradores
 
@@ -21,7 +45,7 @@ Utilize as credenciais abaixo para explorar as diferentes permissões do sistema
 - `admin2@example.com`
 - `admin3@example.com`
 
-### 👤 Usuários Padrão
+### 👤 Usuários padrão
 
 - `user1@example.com`
 - `user2@example.com`
@@ -29,18 +53,15 @@ Utilize as credenciais abaixo para explorar as diferentes permissões do sistema
 
 ---
 
-## 🛠️ Tecnologias Utilizadas
+## 🛠️ Tecnologias utilizadas
 
-Este projeto utiliza o que há de mais moderno no ecossistema PHP e JavaScript:
-
-- **Framework Backend:** [Laravel 12](https://laravel.com)
-- **Framework Frontend:** [Vue.js](https://vuejs.org)
-- **Ponte de Dados:** [Inertia.js](https://inertiajs.com) (O clássico "Monolito Moderno")
-- **Hospedagem:** [Laravel Cloud](https://cloud.laravel.com)
-- **Banco de Dados:** MySQL
+- **Backend:** [Laravel 12](https://laravel.com)
+- **Frontend:** [Vue.js 3](https://vuejs.org) (Composition API)
+- **Ponte de Dados:** [Inertia.js](https://inertiajs.com) (Experiência SPA)
+- **Estilização:** [Tailwind CSS](https://tailwindcss.com)
 
 ---
 
 ## 📝 Licença
 
-Este projeto é um software de código aberto (open-source).
+Este projeto é um software de código aberto (open-source) licenciado sob a [MIT license](https://opensource.org/licenses/MIT).

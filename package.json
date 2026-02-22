@@ -8,7 +8,8 @@
         "dev": "vite",
         "format": "prettier --write resources/",
         "format:check": "prettier --check resources/",
-        "lint": "eslint . --fix"
+        "lint": "eslint . --fix",
+        "start": "cp -n .env.example .env && touch database/database.sqlite && composer install && php artisan key:generate && php artisan migrate:fresh --seed && npm install && php artisan serve"
     },
     "devDependencies": {
         "@eslint/js": "^9.19.0",
