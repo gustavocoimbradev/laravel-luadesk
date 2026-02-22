@@ -11,8 +11,8 @@ class TicketFactory extends Factory
     public function definition(): array
     {
         return [
-            'title' => fake()->sentence(4),
-            'content' => fake()->paragraphs(3, true),
+            'title' => $this->faker->sentence(4),
+            'content' => $this->faker->paragraphs(3, true),
             'user_id' => User::factory(),
         ];
     }
