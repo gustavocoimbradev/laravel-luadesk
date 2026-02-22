@@ -22,7 +22,7 @@ const submit = () => {
             <div class="card">
                 <div class="card-header">
                     {{ $page.props.auth.user.is_admin ? 'User' : 'My account' }}
-                </div>z
+                </div>
                 <div class="card-body">
                     <input type="text" class="field" placeholder="Name" v-model="form.name"/>
                     <div class="error" v-if="$page.props.errors.name">{{ $page.props.errors.name }}</div>

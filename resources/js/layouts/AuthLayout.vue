@@ -1,5 +1,5 @@
 <script setup>
-import { Moon } from 'lucide-vue-next';
+import { Moon, Github } from 'lucide-vue-next';
 </script>
 
 <template>
@@ -12,6 +12,14 @@ import { Moon } from 'lucide-vue-next';
             <div class="bg-amber-100 border border-amber-200/50 shadow-lg p-6 w-[400px] max-w-full">
                 <slot/>
             </div>
+            <div class="flex items-center justify-center gap-3 mt-6 text-amber-100 text-sm">
+                <div>by <a class="hover:underline cursor-pointer" href="https://www.linkedin.com/in/gustavocoimbradev/">Gustavo Coimbra</a></div> •
+                <a href="https://github.com/gustavocoimbradev/laravel-luadesk" class="flex items-center justify-center gap-3 hover:underline cursor-pointer">
+                    <Github class="text-amber-100" :size="16"/>
+                    <span>Check the repo</span>
+                </a>
+            </div>
         </div>
     </div>
+        
 </template>

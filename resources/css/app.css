@@ -33,6 +33,7 @@ body, html, #app {
         }
     }
     .custom-table {
+        @apply whitespace-nowrap;
         thead {
             tr {
                 th {
