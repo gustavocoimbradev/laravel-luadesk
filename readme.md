@@ -33,7 +33,7 @@ Utilize as credenciais abaixo para explorar as diferentes permissões do sistema
 
 Este projeto utiliza o que há de mais moderno no ecossistema PHP e JavaScript:
 
-- **Framework Backend:** [Laravel 11](https://laravel.com)
+- **Framework Backend:** [Laravel 12](https://laravel.com)
 - **Framework Frontend:** [Vue.js](https://vuejs.org)
 - **Ponte de Dados:** [Inertia.js](https://inertiajs.com) (O clássico "Monolito Moderno")
 - **Hospedagem:** [Laravel Cloud](https://cloud.laravel.com)
